@@ -1,0 +1,35 @@
+{
+  "version": "v0.0.21",
+  "pub_date": "2023-12-28T14:16:49.771Z",
+  "notes": "See the assets to download this version and install.",
+  "platforms": {
+    "win64": {
+      "signature": "Not Found",
+      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.21/CleanCodeStudio_0.0.20_x64_en-US.msi.zip"
+    },
+    "linux": {
+      "signature": "Not Found",
+      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.21/clean-code-studio_0.0.20_amd64.AppImage.tar.gz"
+    },
+    "darwin": {
+      "signature": "Not Found",
+      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.21/CleanCodeStudio.app.tar.gz"
+    },
+    "darwin-aarch64": {
+      "signature": "Not Found",
+      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.21/CleanCodeStudio.app.tar.gz"
+    },
+    "darwin-x86_64": {
+      "signature": "Not Found",
+      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.21/CleanCodeStudio.app.tar.gz"
+    },
+    "linux-x86_64": {
+      "signature": "Not Found",
+      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.21/clean-code-studio_0.0.20_amd64.AppImage.tar.gz"
+    },
+    "windows-x86_64": {
+      "signature": "Not Found",
+      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.21/CleanCodeStudio_0.0.20_x64_en-US.msi.zip"
+    }
+  }
+}
