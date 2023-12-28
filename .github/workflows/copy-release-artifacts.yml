@@ -12,4 +12,23 @@ jobs:
           - name: Setup GitHub CLI
             run: |
               echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
-              gh repo view --json name -q ".name"          
+              latestTag=$(gh release view --repo zhorton34/ccs --json tagName -q ".tagName")
+              hasLatestTag=$(gh release view --repo zhorton34/ccs-releases --json tagName -q ".tagName" || echo "")
+              
+              echo "Latest Tag in Source Repo: $latestTag"
+              echo "Latest Tag in Target Repo: $hasLatestTag"
+    
+              if [ "$latestTag" != "$hasLatestTag" ]; then
+                echo "Syncing release $latestTag"
+                mkdir -p tmp
+                gh release download $latestTag --repo zhorton34/ccs --dir=tmp
+                gh release create $latestTag --repo zhorton34/ccs-releases --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs" tmp/*
+                rm -rf tmp
+              else
+                echo "Latest release is already synced."
+          
+          # Clean up downloaded files
+          - name: Cleanup Artifacts
+            if: failure()
+            run: rm -rf tmp
+    
