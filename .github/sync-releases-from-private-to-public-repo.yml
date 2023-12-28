@@ -3,6 +3,7 @@ name: Sync Releases From Private to Public Repo
 on:
   schedule:
     - cron: '0 0 * * *' # Run daily at midnight
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   sync-releases:
