@@ -24,7 +24,7 @@ jobs:
               fi
 
               gh release download $latestTag --repo zhorton34/ccs --dir=tmp
-              gh release create $latestTag --repo zhorton34/ccs-releases --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs"
+              # gh release create $latestTag --repo zhorton34/ccs-releases --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs"
               gh release upload $latestTag --repo zhorton34/ccs-releases tmp/
           
           # Clean up downloaded files
