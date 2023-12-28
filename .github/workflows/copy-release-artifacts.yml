@@ -23,6 +23,8 @@ jobs:
                 exit 0
               fi
 
+              echo $latestTag
+
               gh release download $latestTag --repo zhorton34/ccs --dir=tmp
               # gh release create $latestTag --repo zhorton34/ccs-releases --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs"
               gh release upload $latestTag --repo zhorton34/ccs-releases tmp/
