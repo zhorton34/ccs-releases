@@ -17,12 +17,7 @@ jobs:
             run: |
               latestTag=$(gh release view --repo zhorton34/ccs --json tagName -q ".tagName")
               hasLatestTag=$(gh release view --repo zhorton34/ccs-releases --json tagName -q ".tagName")
-              
-              if [[ "$latestTag" == "$hasLatestTag" ]]; then
-                echo "Latest tag $latestTag already exists in target repository"
-                exit 0
-              fi
-
+   
               echo $latestTag
 
               gh release download $latestTag --repo zhorton34/ccs --dir=tmp
