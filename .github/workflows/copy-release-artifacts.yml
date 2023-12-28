@@ -1,0 +1,29 @@
+name: Sync Release
+
+on: [push, workflow_dispatch]
+
+jobs:
+    sync-releases:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+    
+          - name: Setup GitHub CLI
+            run: |
+              echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+    
+          - name: Download artifacts from source repository
+            run: |
+              latestTag=$(gh release view latest --repo zhorton34/ccs --json tagName -q ".tagName")
+              echo "Latest Release Tag: $latestTag"
+              gh release download $latestTag --repo zhorton34/ccs --pattern "*"
+    
+          - name: Upload artifacts to target repository
+            run: |
+              # Create a new release in the target repository using the same tag
+              gh release create $latestTag *.zip --repo target-org/target-repo --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs"
+          
+          # Clean up downloaded files
+          - name: Cleanup Artifacts
+            run: rm -f *.zip
