@@ -3,32 +3,37 @@ name: Sync Release
 on: [push, workflow_dispatch]
 
 jobs:
-    sync-releases:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v2
-    
-          - name: Setup GitHub CLI
-            run: |
-              echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
-              latestTag=$(gh release view --repo zhorton34/ccs --json tagName -q ".tagName")
-              hasLatestTag=$(gh release view --repo zhorton34/ccs-releases --json tagName -q ".tagName" || echo "")
-              
-              echo "Latest Tag in Source Repo: $latestTag"
-              echo "Latest Tag in Target Repo: $hasLatestTag"
-    
-              if [ "$latestTag" != "$hasLatestTag" ]; then
-                echo "Syncing release $latestTag"
-                mkdir -p tmp
-                gh release download $latestTag --repo zhorton34/ccs --dir=tmp
-                gh release create $latestTag --repo zhorton34/ccs-releases --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs" tmp/*
-                rm -rf tmp
-              else
-                echo "Latest release is already synced."
-          
-          # Clean up downloaded files
-          - name: Cleanup Artifacts
-            if: failure()
-            run: rm -rf tmp
-    
+  sync-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup GitHub CLI
+        run: |
+          echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
+
+      - name: Get Latest Tag from Source Repository
+        run: |
+          latestTag=$(gh release view --repo zhorton34/ccs --json tagName -q ".tagName")
+          echo "Latest Tag in Source Repo: $latestTag"
+          echo "latestTag=$latestTag" >> $GITHUB_ENV
+
+      - name: Get Latest Tag from Target Repository
+        run: |
+          hasLatestTag=$(gh release view --repo zhorton34/ccs-releases --json tagName -q ".tagName" || echo "")
+          echo "Latest Tag in Target Repo: $hasLatestTag"
+          echo "hasLatestTag=$hasLatestTag" >> $GITHUB_ENV
+
+      - name: Sync Release if Needed
+        if: env.latestTag != env.hasLatestTag
+        run: |
+          echo "Syncing release ${{ env.latestTag }}"
+          mkdir -p tmp
+          gh release download ${{ env.latestTag }} --repo zhorton34/ccs --dir=tmp
+          gh release create ${{ env.latestTag }} --repo zhorton34/ccs-releases --title "Release ${{ env.latestTag }}" --notes "Automatically synced from zhorton34/ccs" tmp/*
+          rm -rf tmp
+
+      - name: Cleanup Artifacts
+        if: failure()
+        run: rm -rf tmp
