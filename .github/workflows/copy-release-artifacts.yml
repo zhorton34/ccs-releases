@@ -13,17 +13,20 @@ jobs:
             run: |
               echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
     
-          - name: Download artifacts from source repository
+          - name: Download  ccs release artifacts
             run: |
-              latestTag=$(gh release view latest --repo zhorton34/ccs --json tagName -q ".tagName")
-              echo "Latest Release Tag: $latestTag"
-              gh release download $latestTag --repo zhorton34/ccs --pattern "*"
-    
-          - name: Upload artifacts to target repository
-            run: |
-              # Create a new release in the target repository using the same tag
-              gh release create $latestTag *.zip --repo target-org/target-repo --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs"
+              latestTag=$(gh release view --repo zhorton34/ccs --json tagName -q ".tagName")
+              hasLatestTag=$(gh release view --repo zhorton34/ccs-releases --json tagName -q ".tagName")
+              
+              if [[ "$latestTag" == "$hasLatestTag" ]]; then
+                echo "Latest tag $latestTag already exists in target repository"
+                exit 0
+              fi
+
+              gh release download $latestTag --repo zhorton34/ccs --dir=tmp
+              gh release create $latestTag --repo zhorton34/ccs-releases --title "Release $latestTag" --notes "Automatically synced from zhorton34/ccs"
+              gh release upload $latestTag --repo zhorton34/ccs-releases tmp/
           
           # Clean up downloaded files
           - name: Cleanup Artifacts
-            run: rm -f *.zip
+            run: rm -rf tmp
