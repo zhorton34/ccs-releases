@@ -4,32 +4,32 @@
   "notes": "See the assets to download this version and install.",
   "platforms": {
     "win64": {
-      "signature": "Not Found",
-      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.30/CleanCodeStudio_0.0.30_x64_en-US.msi.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTSXlyNFFDQ0FsN0krU3Z4cmFpVC8zTkpTQy84cFNSZHJoSEh3Qi9DdlBXVkJHRk9xVXg3eDdUV0R5TzhxRWh1WjFhbTRTbUtIa2QwcSsrMTRSZVlBdklBZUZidWRnNlFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzAzNDIxOTEzCWZpbGU6Q2xlYW5Db2RlU3R1ZGlvXzAuMC4xMl94NjRfZW4tVVMubXNpLnppcApZbGVuZnArQlY1Z3M0RUJrZEFWc3lkUzZuemdmZEFCblVVVnE5eHcwU1dhbklBQUh6T3BCZ2ZrdzZtRC8wckZ5MlB3M1V2cm5CL3pSUTh1dzlIUG9BQT09Cg",
+      "url": "https://github.com/zhorton34/ccs-releases/releases/download/v0.0.30/CleanCodeStudio_0.0.30_x64_en-US.msi.zip"
     },
     "linux": {
-      "signature": "Not Found",
-      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.30/clean-code-studio_0.0.30_amd64.AppImage.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTSXlyNFFDQ0FsN0krU3Z4cmFpVC8zTkpTQy84cFNSZHJoSEh3Qi9DdlBXVkJHRk9xVXg3eDdUV0R5TzhxRWh1WjFhbTRTbUtIa2QwcSsrMTRSZVlBdklBZUZidWRnNlFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzAzNDIxOTEzCWZpbGU6Q2xlYW5Db2RlU3R1ZGlvXzAuMC4xMl94NjRfZW4tVVMubXNpLnppcApZbGVuZnArQlY1Z3M0RUJrZEFWc3lkUzZuemdmZEFCblVVVnE5eHcwU1dhbklBQUh6T3BCZ2ZrdzZtRC8wckZ5MlB3M1V2cm5CL3pSUTh1dzlIUG9BQT09Cg",
+      "url": "https://github.com/zhorton34/ccs-releases/releases/download/v0.0.30/clean-code-studio_0.0.30_amd64.AppImage.tar.gz"
     },
     "darwin": {
-      "signature": "Not Found",
-      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.30/CleanCodeStudio.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTSXlyNFFDQ0FsN0krU3Z4cmFpVC8zTkpTQy84cFNSZHJoSEh3Qi9DdlBXVkJHRk9xVXg3eDdUV0R5TzhxRWh1WjFhbTRTbUtIa2QwcSsrMTRSZVlBdklBZUZidWRnNlFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzAzNDIxOTEzCWZpbGU6Q2xlYW5Db2RlU3R1ZGlvXzAuMC4xMl94NjRfZW4tVVMubXNpLnppcApZbGVuZnArQlY1Z3M0RUJrZEFWc3lkUzZuemdmZEFCblVVVnE5eHcwU1dhbklBQUh6T3BCZ2ZrdzZtRC8wckZ5MlB3M1V2cm5CL3pSUTh1dzlIUG9BQT09Cg",
+      "url": "https://github.com/zhorton34/ccs-releases/releases/download/v0.0.30/CleanCodeStudio.app.tar.gz"
     },
     "darwin-aarch64": {
-      "signature": "Not Found",
-      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.30/CleanCodeStudio.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTSXlyNFFDQ0FsN0krU3Z4cmFpVC8zTkpTQy84cFNSZHJoSEh3Qi9DdlBXVkJHRk9xVXg3eDdUV0R5TzhxRWh1WjFhbTRTbUtIa2QwcSsrMTRSZVlBdklBZUZidWRnNlFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzAzNDIxOTEzCWZpbGU6Q2xlYW5Db2RlU3R1ZGlvXzAuMC4xMl94NjRfZW4tVVMubXNpLnppcApZbGVuZnArQlY1Z3M0RUJrZEFWc3lkUzZuemdmZEFCblVVVnE5eHcwU1dhbklBQUh6T3BCZ2ZrdzZtRC8wckZ5MlB3M1V2cm5CL3pSUTh1dzlIUG9BQT09Cg",
+      "url": "https://github.com/zhorton34/ccs-releases/releases/download/v0.0.30/CleanCodeStudio.app.tar.gz"
     },
     "darwin-x86_64": {
-      "signature": "Not Found",
-      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.30/CleanCodeStudio.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTSXlyNFFDQ0FsN0krU3Z4cmFpVC8zTkpTQy84cFNSZHJoSEh3Qi9DdlBXVkJHRk9xVXg3eDdUV0R5TzhxRWh1WjFhbTRTbUtIa2QwcSsrMTRSZVlBdklBZUZidWRnNlFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzAzNDIxOTEzCWZpbGU6Q2xlYW5Db2RlU3R1ZGlvXzAuMC4xMl94NjRfZW4tVVMubXNpLnppcApZbGVuZnArQlY1Z3M0RUJrZEFWc3lkUzZuemdmZEFCblVVVnE5eHcwU1dhbklBQUh6T3BCZ2ZrdzZtRC8wckZ5MlB3M1V2cm5CL3pSUTh1dzlIUG9BQT09Cg",
+      "url": "https://github.com/zhorton34/ccs-releases/releases/download/v0.0.30/CleanCodeStudio.app.tar.gz"
     },
     "linux-x86_64": {
-      "signature": "Not Found",
-      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.30/clean-code-studio_0.0.30_amd64.AppImage.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTSXlyNFFDQ0FsN0krU3Z4cmFpVC8zTkpTQy84cFNSZHJoSEh3Qi9DdlBXVkJHRk9xVXg3eDdUV0R5TzhxRWh1WjFhbTRTbUtIa2QwcSsrMTRSZVlBdklBZUZidWRnNlFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzAzNDIxOTEzCWZpbGU6Q2xlYW5Db2RlU3R1ZGlvXzAuMC4xMl94NjRfZW4tVVMubXNpLnppcApZbGVuZnArQlY1Z3M0RUJrZEFWc3lkUzZuemdmZEFCblVVVnE5eHcwU1dhbklBQUh6T3BCZ2ZrdzZtRC8wckZ5MlB3M1V2cm5CL3pSUTh1dzlIUG9BQT09Cg",
+      "url": "https://github.com/zhorton34/ccs-releases/releases/download/v0.0.30/clean-code-studio_0.0.30_amd64.AppImage.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "Not Found",
-      "url": "https://github.com/zhorton34/ccs/releases/download/v0.0.30/CleanCodeStudio_0.0.30_x64_en-US.msi.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTSXlyNFFDQ0FsN0krU3Z4cmFpVC8zTkpTQy84cFNSZHJoSEh3Qi9DdlBXVkJHRk9xVXg3eDdUV0R5TzhxRWh1WjFhbTRTbUtIa2QwcSsrMTRSZVlBdklBZUZidWRnNlFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzAzNDIxOTEzCWZpbGU6Q2xlYW5Db2RlU3R1ZGlvXzAuMC4xMl94NjRfZW4tVVMubXNpLnppcApZbGVuZnArQlY1Z3M0RUJrZEFWc3lkUzZuemdmZEFCblVVVnE5eHcwU1dhbklBQUh6T3BCZ2ZrdzZtRC8wckZ5MlB3M1V2cm5CL3pSUTh1dzlIUG9BQT09Cg",
+      "url": "https://github.com/zhorton34/ccs-releases/releases/download/v0.0.30/CleanCodeStudio_0.0.30_x64_en-US.msi.zip"
     }
   }
 }
