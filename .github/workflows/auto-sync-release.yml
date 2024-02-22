@@ -1,4 +1,4 @@
-name: Automate Sync Release
+name: Auto Sync Release
 
 on:
     release:
