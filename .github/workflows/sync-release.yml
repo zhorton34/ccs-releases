@@ -7,7 +7,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
+      - uses: actions/checkout@v3 
+      - name: Install Git
+        run: sudo apt-get update && sudo apt-get install git
+      
       - name: Setup GitHub CLI
         run: |
           echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
@@ -35,7 +39,13 @@ jobs:
 
       - name: Cleanup Artifacts
         if: failure()
-        run: rm -rf tmp
+        run: |
+          if [ -d "tmp" ]; then
+            echo "Cleaning up temporary artifacts in 'tmp'"
+          rm -rf tmp
+          else
+            echo "Directory 'tmp' not found. Skipping cleanup"
+          fi
 
       - name: Update releases.json
         run: |
@@ -58,8 +68,8 @@ jobs:
           sed -i 's/github.com\/zhorton34\/ccs/github.com\/zhorton34\/ccs-releases/g' releases.json
 
           # 4. Commit and push
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your_email@example.com'
+          git config --global user.name 'zhorton34'
+          git config --global user.email 'zhorton999@gmail.com'
           git add releases.json
           git commit -m "Update releases.json for ${{ env.latestTag }}"
           git push origin gh-pages

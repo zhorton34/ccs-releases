@@ -1,0 +1,58 @@
+name: Automate Sync Release
+on:
+  release:
+    types: [created]  # Trigger on new releases in the 'ccs' repo
+  repository_dispatch:  # Optional if you want to manually trigger
+
+jobs:
+  sync-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup GitHub CLI
+        run: |
+          echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
+
+      - name: Get Latest Tag from Source Repository
+        id: get_latest_release
+        run: |
+          latestTag=$(gh release view --repo zhorton34/ccs --json tagName -q ".tagName")
+          echo "Latest Tag in Source Repo: $latestTag"
+          echo "::set-output name=latest_tag::$latestTag" 
+
+      - name: Sync Release
+        run: |
+          mkdir -p tmp
+          gh release download ${{ steps.get_latest_release.outputs.latest_tag }} --repo zhorton34/ccs --dir=tmp
+          gh release create ${{ steps.get_latest_release.outputs.latest_tag }} --repo zhorton34/ccs-releases --title "Release ${{ steps.get_latest_release.outputs.latest_tag }}" --notes "Automatically synced from zhorton34/ccs" tmp/*
+          rm -rf tmp
+
+          - name: Update releases.json
+          run: |
+            # 1. Download releases.json
+            curl -L -o releases.json https://raw.githubusercontent.com/zhorton34/ccs-releases/gh-pages/releases.json
+  
+            # 2. Extract signature values
+            for platform in win64 linux darwin darwin-aarch64 darwin-x86_64 linux-x86_64 windows-x86_64; do
+              sig_file="tmp/${platform}.sig"  
+              sig_url="https://github.com/zhorton34/ccs-releases/releases/download/${{ env.latestTag }}/${sig_file}"
+              curl -L -o "${sig_file}" "${sig_url}" 
+              signature=$(cat "${sig_file}")
+  
+              # Use jq for JSON manipulation
+              jq ".platforms.${platform}.signature = \"${signature}\"" releases.json > releases.json.tmp
+              mv releases.json.tmp releases.json 
+            done
+  
+            # 3. Replace repo URLs
+            sed -i 's/github.com\/zhorton34\/ccs/github.com\/zhorton34\/ccs-releases/g' releases.json
+  
+            # 4. Commit and push
+            git config --global user.name 'Your Name'
+            git config --global user.email 'your_email@example.com'
+            git add releases.json
+            git commit -m "Update releases.json for ${{ env.latestTag }}"
+            git push origin gh-pages
+  
