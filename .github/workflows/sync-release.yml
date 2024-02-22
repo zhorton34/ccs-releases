@@ -1,4 +1,4 @@
-name: Sync Release
+name: Sync Release & Update releases.json
 on:
   workflow_dispatch:
 jobs:
