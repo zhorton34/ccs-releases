@@ -53,23 +53,14 @@ jobs:
       - name: Update releases.json
         run: |
           # 1. Download releases.json
-          curl -L -o releases.json https://raw.githubusercontent.com/zhorton34/ccs-releases/gh-pages/releases.json
+          curl -L -o latest.json https://raw.githubusercontent.com/zhorton34/ccs/releases/tag/${{ env.latestTag }}/latest.json
 
-          # 2. Extract signature values
-          for platform in win64 linux darwin darwin-aarch64 darwin-x86_64 linux-x86_64 windows-x86_64; do
-            sig_file="tmp/${platform}.sig"  
-            sig_url="https://github.com/zhorton34/ccs-releases/releases/download/${{ env.latestTag }}/${sig_file}"
-            curl -L -o "${sig_file}" "${sig_url}" 
-            signature=$(cat "${sig_file}")
-          done
+          # 2. Update releases.json with proper naming convention
+          yarn make:release ./latest.json
 
-          # 3. Replace repo URLs
-          yarn make:release 
-          sed -i 's/github.com\/zhorton34\/ccs/github.com\/zhorton34\/ccs-releases/g' releases.json
+          cat ./latest.json
 
-          # 4. Commit and push
-          git config --global user.name 'zhorton34'
-          git config --global user.email 'zhorton999@gmail.com'
-          git add releases.json
-          git commit -m "Update releases.json for ${{ env.latestTag }}"
-          git push origin main
+          # 3. Upload releases.json to gist and get the raw URL
+          gistUrl=$(gh gist create --public --file ccs.json --json files -q ".files[\"latest.json\"].raw_url")
+          echo "Gist URL: $gistUrl"
+          echo "gistUrl=$gistUrl" >> $GITHUB_ENV
