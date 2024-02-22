@@ -4,6 +4,18 @@ on:
 jobs:
   sync-releases:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      security-events: write
+      statuses: write
+      repository-projects: write
+      deployments: write
+      issues: write
+      pull-requests: write
+      checks: write
+      actions: write
+
     steps:
       - uses: actions/checkout@v3 
       - name: Install Git
@@ -53,12 +65,21 @@ jobs:
       - name: Update releases.json
         run: |
           # 1. Download releases.json
-          curl -L -o releases.json https://raw.githubusercontent.com/zhorton34/ccs/releases/tag/${{ env.latestTag }}/latest.json
+          echo ${{ env.latestTag }}
+          # if env.latestTag does not start with a v, then add a v
+          if [[ ${{ env.latestTag }} != v* ]]; then
+            echo "Adding v to tag"
+            latestTag="v${{ env.latestTag }}"
+          else
+            latestTag=${{ env.latestTag }}
+          fi
+          echo "Latest Tag: $latestTag"
+          curl -L -o latest.json https://raw.githubusercontent.com/zhorton34/ccs/releases/tag/${{ env.latestTag }}/latest.json
 
           # 2. Update releases.json with proper naming convention
-          node scripts/update-releases ./releases.json
+          node scripts/update-releases ./latest.json
 
           # 3. Overwrite releases.json
-          gh release upload ${{ env.latestTag }} ./releases.json --repo zhorton34/ccs-releases --clobber
+          gh release upload ${{ env.latestTag }} ./latest.json --repo zhorton34/ccs-releases --clobber
           
 
