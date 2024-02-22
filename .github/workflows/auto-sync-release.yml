@@ -24,7 +24,7 @@ jobs:
           latestTag=$(gh release view --repo zhorton34/ccs --json tagName -q ".tagName")
           echo "Latest Tag in Source Repo: $latestTag"
           echo "::set-output name=latest_tag::$latestTag" 
-
+      
       - name: Sync Release
         run: |
           mkdir -p tmp
@@ -32,26 +32,25 @@ jobs:
           gh release create ${{ steps.get_latest_release.outputs.latest_tag }} --repo zhorton34/ccs-releases --title "Release ${{ steps.get_latest_release.outputs.latest_tag }}" --notes "Automatically synced from zhorton34/ccs" tmp/*
           rm -rf tmp
 
-          - name: Update releases.json
-          run: |
+      - name: Update releases.json
+        run: |
             # 1. Download releases.json
             curl -L -o releases.json https://raw.githubusercontent.com/zhorton34/ccs-releases/gh-pages/releases.json
-  
             # 2. Extract signature values
             for platform in win64 linux darwin darwin-aarch64 darwin-x86_64 linux-x86_64 windows-x86_64; do
-              sig_file="tmp/${platform}.sig"  
-              sig_url="https://github.com/zhorton34/ccs-releases/releases/download/${{ env.latestTag }}/${sig_file}"
-              curl -L -o "${sig_file}" "${sig_url}" 
-              signature=$(cat "${sig_file}")
-  
-              # Use jq for JSON manipulation
-              jq ".platforms.${platform}.signature = \"${signature}\"" releases.json > releases.json.tmp
-              mv releases.json.tmp releases.json 
+                sig_file="tmp/${platform}.sig"  
+                sig_url="https://github.com/zhorton34/ccs-releases/releases/download/${{ env.latestTag }}/${sig_file}"
+                curl -L -o "${sig_file}" "${sig_url}" 
+                signature=$(cat "${sig_file}")
+    
+                # Use jq for JSON manipulation
+                jq ".platforms.${platform}.signature = \"${signature}\"" releases.json > releases.json.tmp
+                mv releases.json.tmp releases.json 
             done
-  
+    
             # 3. Replace repo URLs
             sed -i 's/github.com\/zhorton34\/ccs/github.com\/zhorton34\/ccs-releases/g' releases.json
-  
+
             # 4. Commit and push
             git config --global user.name 'zhorton34'
             git config --global user.email 'zhorton999@gmail.com'
