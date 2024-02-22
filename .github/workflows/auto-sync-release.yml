@@ -1,9 +1,10 @@
 name: Automate Sync Release
-on:
-  release:
-    types: [created]  # Trigger on new releases in the 'ccs' repo
-  repository_dispatch:  # Optional if you want to manually trigger
 
+on:
+    release:
+        types: [created]  # Trigger on new releases in the 'ccs' repo        
+    repository_dispatch:  # Optional if you want to manually trigger
+    workflow_dispatch:    # Optional if you want to manually trigger
 jobs:
   sync-releases:
     runs-on: ubuntu-latest
@@ -11,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup GitHub CLI
+      - name: Setup GH CLI Tool
         run: |
           echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
 
