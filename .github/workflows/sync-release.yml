@@ -38,7 +38,7 @@ jobs:
           mkdir -p tmp
           gh release download ${{ env.latestTag }} --repo zhorton34/ccs --dir=tmp
           gh release create ${{ env.latestTag }} --repo zhorton34/ccs-releases --title "Release ${{ env.latestTag }}" --notes "Automatically synced from zhorton34/ccs" tmp/*
-          rm -rf tmp
+          
 
       - name: Cleanup Artifacts
         if: failure()
@@ -72,4 +72,4 @@ jobs:
           git config --global user.email 'zhorton999@gmail.com'
           git add releases.json
           git commit -m "Update releases.json for ${{ env.latestTag }}"
-          git push origin gh-pages
+          git push origin main
