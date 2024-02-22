@@ -49,6 +49,7 @@ jobs:
           echo "Syncing release ${{ env.latestTag }}"
           mkdir -p tmp
           gh release download ${{ env.latestTag }} --repo zhorton34/ccs --dir=tmp
+          node scripts/update-releases.js ./tmp/latest.json
           gh release create ${{ env.latestTag }} --repo zhorton34/ccs-releases --title "Release ${{ env.latestTag }}" --notes "Automatically synced from zhorton34/ccs" tmp/*
           
 
@@ -62,24 +63,26 @@ jobs:
             echo "Directory 'tmp' not found. Skipping cleanup"
           fi
 
-      - name: Update releases.json
-        run: |
-          # 1. Download releases.json
-          echo ${{ env.latestTag }}
-          # if env.latestTag does not start with a v, then add a v
-          if [[ ${{ env.latestTag }} != v* ]]; then
-            echo "Adding v to tag"
-            latestTag="v${{ env.latestTag }}"
-          else
-            latestTag=${{ env.latestTag }}
-          fi
-          echo "Latest Tag: $latestTag"
-          curl -L -o latest.json https://raw.githubusercontent.com/zhorton34/ccs/releases/tag/${{ env.latestTag }}/latest.json
+      # - name: Update releases.json
+      #   run: |
+      #     # 1. Download releases.json
+      #     echo ${{ env.latestTag }}
+      #     # if env.latestTag does not start with a v, then add a v
+      #     if [[ ${{ env.latestTag }} != v* ]]; then
+      #       echo "Adding v to tag"
+      #       latestTag="v${{ env.latestTag }}"
+      #     else
+      #       latestTag=${{ env.latestTag }}
+      #     fi
+      #     echo "Latest Tag: $latestTag"
 
-          # 2. Update releases.json with proper naming convention
-          node scripts/update-releases ./latest.json
+          
+      #     curl -L -o latest.json https://github.com/zhorton34/ccs/releases/download/${{ env.latestTag }}/latest.json
 
-          # 3. Overwrite releases.json
-          gh release upload ${{ env.latestTag }} ./latest.json --repo zhorton34/ccs-releases --clobber
+      #     # 2. Update releases.json with proper naming convention
+      #     node scripts/update-releases ./latest.json
+
+      #     # 3. Overwrite releases.json
+      #     gh release upload ${{ env.latestTag }} ./latest.json --repo zhorton34/ccs-releases --clobber
           
 
