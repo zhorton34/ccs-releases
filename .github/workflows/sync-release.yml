@@ -53,14 +53,12 @@ jobs:
       - name: Update releases.json
         run: |
           # 1. Download releases.json
-          curl -L -o latest.json https://raw.githubusercontent.com/zhorton34/ccs/releases/tag/${{ env.latestTag }}/latest.json
+          curl -L -o releases.json https://raw.githubusercontent.com/zhorton34/ccs/releases/tag/${{ env.latestTag }}/latest.json
 
           # 2. Update releases.json with proper naming convention
-          yarn make:release ./latest.json
+          node scripts/update-releases ./releases.json
 
-          cat ./latest.json
+          # 3. Overwrite releases.json
+          gh release upload ${{ env.latestTag }} ./releases.json --repo zhorton34/ccs-releases --clobber
+          
 
-          # 3. Upload releases.json to gist and get the raw URL
-          gistUrl=$(gh gist create --public --file ccs.json --json files -q ".files[\"latest.json\"].raw_url")
-          echo "Gist URL: $gistUrl"
-          echo "gistUrl=$gistUrl" >> $GITHUB_ENV
