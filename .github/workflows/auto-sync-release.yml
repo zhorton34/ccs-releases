@@ -12,10 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup GH CLI Tool
+      - uses: actions/checkout@v3 
+      - name: Setup git & gh
         run: |
-          echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
-
+            sudo apt-get update && sudo apt-get install git
+            echo ${{ secrets.GH_AUTH_TOKEN }} | gh auth login --with-token
+  
       - name: Get Latest Tag from Source Repository
         id: get_latest_release
         run: |
@@ -51,8 +53,8 @@ jobs:
             sed -i 's/github.com\/zhorton34\/ccs/github.com\/zhorton34\/ccs-releases/g' releases.json
   
             # 4. Commit and push
-            git config --global user.name 'Your Name'
-            git config --global user.email 'your_email@example.com'
+            git config --global user.name 'zhorton34'
+            git config --global user.email 'zhorton999@gmail.com'
             git add releases.json
             git commit -m "Update releases.json for ${{ env.latestTag }}"
             git push origin gh-pages
