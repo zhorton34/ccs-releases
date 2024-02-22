@@ -5,12 +5,15 @@ jobs:
   sync-releases:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
       - uses: actions/checkout@v3 
       - name: Install Git
         run: sudo apt-get update && sudo apt-get install git
+      
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
       
       - name: Setup GitHub CLI
         run: |
@@ -58,13 +61,10 @@ jobs:
             sig_url="https://github.com/zhorton34/ccs-releases/releases/download/${{ env.latestTag }}/${sig_file}"
             curl -L -o "${sig_file}" "${sig_url}" 
             signature=$(cat "${sig_file}")
-
-            # Use jq for JSON manipulation
-            jq ".platforms.${platform}.signature = \"${signature}\"" releases.json > releases.json.tmp
-            mv releases.json.tmp releases.json 
           done
 
           # 3. Replace repo URLs
+          yarn make:release 
           sed -i 's/github.com\/zhorton34\/ccs/github.com\/zhorton34\/ccs-releases/g' releases.json
 
           # 4. Commit and push

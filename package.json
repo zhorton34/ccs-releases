@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "make:release": "node ./scripts/update-releases.js",
+        "dev": "nodemon server.js"
+    }
+}
