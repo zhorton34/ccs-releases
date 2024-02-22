@@ -40,7 +40,10 @@ jobs:
             # 2. Replace repo URLs
             sed -i 's/github.com\/zhorton34\/ccs/github.com\/zhorton34\/ccs-releases/g' releases.json
 
-            # 3. Commit and push
+            # 3. Cat releases.json file
+            cat releases.json
+
+            # 4. Commit and push
             git config --global user.name 'zhorton34'
             git config --global user.email 'zhorton999@gmail.com'
             git add releases.json
